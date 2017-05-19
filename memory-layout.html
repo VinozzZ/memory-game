@@ -8,6 +8,8 @@
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans:700i" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
 	<link rel="stylesheet" type="text/css" href="style.css">
 
@@ -20,22 +22,42 @@
 
 </head>
 <body>
+	<div class="game-container">
 
-	<div class="container">
-		<div class="start-container">
-			<div class="logo-contianer">
-				<img src="ow.png" />
+		<div class="container">
+			<div class="start-container">
+				<div class="logo-contianer">
+					<img src="ow.png" />
+				</div>
+				<div class="game-name">
+					<img src="name.png" />
+				</div>
+				<div class="play-button">
+					<img src="play.png" />
+				</div>
 			</div>
-			<div class="game-name">
-				<img src="name.png" />
-			</div>
-			<div class="play-button">
-				<img src="play.png" />
+			<div class="row">
+				<div class="col-sm-12 mg-contents">
+					<!-- jQuery, don't fail us now. Put our HTML inside mg-contents! -->
+				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm-12 mg-contents">
-				<!-- jQuery, don't fail us now. Put our HTML inside mg-contents! -->
+		<div class="menu-container">
+			<div class="score-container">
+				Score: <span class="score">200</span>
+			</div>
+			<div class="time-container">
+				Time: <span class="time">:</span>
+			</div>
+			<div class="reset-container">
+				<span class="reset">Reset</span>
+			</div>
+		</div>
+		<div class="message-container">
+			<div class="message-bg">
+			</div>
+			<div class="message-text">
+				YOU HAVE WON THE GAME!
 			</div>
 		</div>
 	</div>

@@ -5,15 +5,16 @@ body{
 img {
     max-width: 100%;
 }
-
+.game-container {
+    position: relative;
+}
 .mg-contents {
-    display: none;
     opacity: 0;
     margin-top: 30px;
     transition: all 2s;
 }
 
-.imhere{
+.show-game{
     opacity: 1
 }
 
@@ -27,6 +28,16 @@ img {
 
 .start-container img {
     transition: all 2s;
+}
+
+.menu-container {
+    display:none;
+    position: absolute;
+    top: 50%;
+    right: 85%;
+    font-size: 30px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #d6d6d6;
 }
 /*card is the grandparent. It needs perspective so that it's child can play in the 3d space*/
 .card {
@@ -84,4 +95,36 @@ img {
     border-radius: 30%;
     border: 2px solid #d6d6d6;
 
+}
+.score-container {
+
+}
+.reset:hover{
+    font-weight: bold;
+}
+
+.message-container {
+    display: none;
+    height: 50px;
+    width: 200px;
+    color: #f69f1a;
+    font-family: 'PT Sans', sans-serif;
+    position: absolute;
+    top:25%;
+    left:44%;
+}
+
+.message-bg, .message-text{
+    position:absolute;
+    height: 50px;
+    width: 200px;
+}
+
+.message-bg {
+    background-color: #d6d6d6;
+    opacity: 0.5;
+}
+.message-text {
+    top:30%;
+    left:10%
 }
