@@ -23,7 +23,7 @@ $(document).ready(function(){
 		reset();
 		displayCard();
 
-	})
+	});
 
 
 	$('.card-holder').click(function(){
@@ -99,18 +99,6 @@ function updateScore(){
 	$('.score').text(score);
 }
 
-// function updateTime(timerInterval) {
-// 	time -= 1;
-// 	console.log(time);
-// 	if (time > 0){
-// 		$('.time').html(`${time}`);
-// 	}else {
-// 		runTime = false;
-// 		time = 0;
-// 		$('.time').html('0');
-// 		clearInterval(timerInterval);
-// 	}
-// }
 
 function reset(){
 	cards = createCard();
@@ -130,16 +118,16 @@ function ability(card1, timerInterval){
 	// 1. mercy: Heros never die. Time + 5s
 	if (card1.slice(-5,-4) == 4){
 		GameT.addTime(5000);
-		textGenerater('Heros never die! +5s');
+		textGenerater("Heros never die! +5s");
 	}
 
 	// 2. Mei: Freeze, don't move
 	else if(card1.slice(-5, -4) == 1){
 		GameT.pauseT();
-		setTimeout(()=>GameT.resume(10000), 5000);
+		setTimeout(()=>GameT.resume(7000), 5000);
 		// setTimeout(timerInterval = setInterval(()=>updateTime(timerInterval), 5000));
 	}else if(card1.slice(-5, -4) == 3){
-		GameT.lossTime(5000);
+		GameT.lossTime(-5000);
 	}
 	// 3. Widow: No one can hide from my sight. show cards around her
 
@@ -151,7 +139,7 @@ function textGenerater(text){
 	}
 	setTimeout($('.message-container').css('display', 'block'), 1000);
 	$('.message-text').html(text);
-	// setTimeout($('.message-container').css('display', 'none'), 1000);
+	setTimeout($('.message-container').hide(), 5000);
 }
 
 function Timer(seconds){
@@ -168,23 +156,26 @@ Timer.prototype.start = function(){
 	if(!this.running){
 		this.currentTime = Date.parse(new Date());
 		this.timeInterval = setInterval(()=>this.updateTime(0), 1000);
-
 		this.running = true;
 	}
 };
 Timer.prototype.resume = function(passTime){
 	this.pause = false;
-	this.updateTime(passTime);
+	this.timeInterval = setInterval(()=>this.updateTime(passTime), 1000);
+
 };
 Timer.prototype.addTime = function(time){
-	this.updateTime(time)
+	clearInterval(this.timeInterval);
+	this.timeInterval = setInterval(()=>this.updateTime(time), 1000);
 }
 Timer.prototype.lossTime = function(time){
-	this.updateTime(-time);
+	clearInterval(this.timeInterval);
+	this.timeInterval = setInterval(()=>this.updateTime(time), 1000);
 }
 Timer.prototype.pauseT = function(){
 	this.pause = true;
 	this.pauseTime = this.timeOut
+	clearInterval(this.timeInterval);
 };
 
 Timer.prototype.display = function(){
