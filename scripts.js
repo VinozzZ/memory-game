@@ -9,6 +9,7 @@ var gridSize = 16;
 var timerInterval = 0;
 var won = false;
 var GameT = new Timer(60);
+var outTime = false;
 // All code will wait until the DOM is ready!
 $(document).ready(function(){
 	displayCard();
@@ -22,11 +23,11 @@ $(document).ready(function(){
 	$('.reset').click(function(){
 		reset();
 		displayCard();
-
 	});
 
-
 	$('.card-holder').click(function(){
+		console.log('reset');
+		if ((!won) && (!outTime)){
 			GameT.start();
 			$(this).toggleClass('flip');
 			var cardsUp = $('.flip');
@@ -38,7 +39,7 @@ $(document).ready(function(){
 					cardsUp.removeClass('flip');
 					cardsUp.addClass('matched');
 					var matchedCards = $('.matched');
-					ability(card1, timerInterval);
+					ability(card1, cardsUp);
 					if(matchedCards.length == gridSize){
 						won = true;
 						textGenerater('YOU HAVE WON THE GAME!');
@@ -50,7 +51,9 @@ $(document).ready(function(){
 					updateScore();
 				}
 			}
+		}
 	});
+
 
 
 });
@@ -65,6 +68,7 @@ function createCard(){
 	return cards;
 }
 function displayCard(){
+	console.log('reset');
 	var card = 0;
 	var mgHTML = '';
 	shuffleCard()
@@ -75,7 +79,7 @@ function displayCard(){
 		}else{
 			mgHTML += '<div class="card col-sm-3">';
 		}
-			mgHTML += '<div class="card-holder">';
+			mgHTML += `<div class="card-holder ${i}">`;
 				mgHTML += '<div class="card-front">'+card+'</div>';
 				mgHTML += '<div class="card-back"></div>';
 			mgHTML += '</div>';
@@ -94,6 +98,23 @@ function shuffleCard(){
 	}
 }
 
+function showCard(cardsUp){
+	var classList = cardsUp.attr("class").split(" ");
+	var currentCard = Number(classList[1]);
+	var showed = false;
+	while (!showed) {
+		for (let i = currentCard; i < gridSize; i++){
+			var nextCard = $(`.${currentCard+i}`);
+			if (!nextCard.hasClass('flip')){
+				console.log(nextCard);
+				nextCard.addClass('flip');
+				setTimeout(()=>nextCard.removeClass('flip'), 2000);
+				showed = true;
+				break;
+			}
+		}
+	}
+}
 function updateScore(){
 	score--;
 	$('.score').text(score);
@@ -107,39 +128,51 @@ function reset(){
 	theCards = cards.slice();
 	card = 0;
 	mgHTML = '';
+	timerInterval = 0;
+	won = false;
+	GameT.clearInterval();
+	$('.time').html('0');
+	GameT = new Timer(60);
+	outTime = false;
+	$('.score').text(score);
 	$('.card-holder').removeClass('flip');
 	$('.card-holder').removeClass('matched');
 	$('.mg-contents').css('filter', 'none');
 	$('.message-container').hide();
 }
 
-function ability(card1, timerInterval){
+function ability(card1, cardsUp){
 	// display hero's line and ability
 	// 1. mercy: Heros never die. Time + 5s
 	if (card1.slice(-5,-4) == 4){
 		GameT.addTime(5000);
 		textGenerater("Heros never die! +5s");
 	}
-
 	// 2. Mei: Freeze, don't move
 	else if(card1.slice(-5, -4) == 1){
+		var nextLine = "<br/>";
 		GameT.pauseT();
-		setTimeout(()=>GameT.resume(7000), 5000);
-		// setTimeout(timerInterval = setInterval(()=>updateTime(timerInterval), 5000));
-	}else if(card1.slice(-5, -4) == 3){
+		textGenerater(`Freeze, don't move!${nextLine}Time pause for 5s`);
+		setTimeout(()=>GameT.resume(6000), 5000);
+	}
+	else if(card1.slice(-5, -4) == 3){
 		GameT.lossTime(-5000);
+		textGenerater("Die, Die, Die!Lost 5s");
+	}
+	else if(card1.slice(-5, -4) == 2){
+		showCard(cardsUp);
 	}
 	// 3. Widow: No one can hide from my sight. show cards around her
 
 }
 
 function textGenerater(text){
-	if (won){
+	if ((won) || (outTime)){
 		$('.mg-contents').css('filter', 'blur(5px)');
 	}
-	setTimeout($('.message-container').css('display', 'block'), 1000);
+	setTimeout(()=>$('.message-container').show(), 1000);
 	$('.message-text').html(text);
-	setTimeout($('.message-container').hide(), 5000);
+	setTimeout(()=>$('.message-container').hide(), 3000);
 }
 
 function Timer(seconds){
@@ -161,6 +194,7 @@ Timer.prototype.start = function(){
 };
 Timer.prototype.resume = function(passTime){
 	this.pause = false;
+	clearInterval(this.timeInterval);
 	this.timeInterval = setInterval(()=>this.updateTime(passTime), 1000);
 
 };
@@ -182,8 +216,12 @@ Timer.prototype.display = function(){
 	if (this.timeOut > 0){
 		$('.time').html(`${this.timeOut/1000}`);
 	}else {
+		outTime = true;
 		$('.time').html('0');
 		clearInterval(this.timeInterval);
+	}
+	if (outTime){
+		textGenerater('YOU HAVE RAN OUT OF TIME!')
 	}
 }
 Timer.prototype.updateTime = function(time){
@@ -193,5 +231,8 @@ Timer.prototype.updateTime = function(time){
 	}else{
 		$('.time').html(`${this.pauseTime/1000}`);
 	}
-
 };
+
+Timer.prototype.clearInterval = function(){
+	clearInterval(this.timeInterval);
+}
