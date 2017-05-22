@@ -103,15 +103,12 @@ function showCard(cardsUp){
 	var currentCard = Number(classList[1]);
 	var showed = false;
 	while (!showed) {
-		for (let i = currentCard; i < gridSize; i++){
-			var nextCard = $(`.${currentCard+i}`);
-			if (!nextCard.hasClass('flip')){
-				console.log(nextCard);
-				nextCard.addClass('flip');
-				setTimeout(()=>nextCard.removeClass('flip'), 2000);
-				showed = true;
-				break;
-			}
+		var i = Math.floor(Math.random()*16);
+		var nextCard = $(`.${currentCard+i}`);
+		if (!nextCard.hasClass('flip')){
+			nextCard.addClass('flip');
+			setTimeout(()=>nextCard.removeClass('flip'), 2000);
+			showed = true;
 		}
 	}
 }
@@ -145,25 +142,28 @@ function ability(card1, cardsUp){
 	// display hero's line and ability
 	// 1. mercy: Heros never die. Time + 5s
 	if (card1.slice(-5,-4) == 4){
-		GameT.addTime(5000);
-		textGenerater("Heros never die! +5s");
+		GameT.addTime(6000);
+		textGenerater('Heros never die! +5s');
+		playSound(card1);
 	}
 	// 2. Mei: Freeze, don't move
 	else if(card1.slice(-5, -4) == 1){
 		var nextLine = "<br/>";
 		GameT.pauseT();
 		textGenerater(`Freeze, don't move!${nextLine}Time pause for 5s`);
+		playSound(card1);
 		setTimeout(()=>GameT.resume(6000), 5000);
 	}
 	else if(card1.slice(-5, -4) == 3){
-		GameT.lossTime(-5000);
-		textGenerater("Die, Die, Die!Lost 5s");
+		GameT.lossTime(-4000);
+		textGenerater('Die, Die, Die!Lost 5s');
+		playSound(card1);
 	}
 	else if(card1.slice(-5, -4) == 2){
+		textGenerater("No one can hide from my sight!");
+		playSound(card1);
 		showCard(cardsUp);
 	}
-	// 3. Widow: No one can hide from my sight. show cards around her
-
 }
 
 function textGenerater(text){
@@ -175,6 +175,14 @@ function textGenerater(text){
 	setTimeout(()=>$('.message-container').hide(), 3000);
 }
 
+function playSound(card1){
+	const currentCard = card1.slice(-5, -4);
+	const audio = $(`.sound-${currentCard}`);
+	console.log(audio);
+	if(!audio) return;
+	audio[0].currentTime = 0;
+	audio[0].play();
+}
 function Timer(seconds){
 	this.seconds = seconds;
 	this.currentTime = 0;
@@ -183,6 +191,8 @@ function Timer(seconds){
 	this.running = false;
 	this.timeInterval = 0;
 	this.pause = false;
+	this.addedT = false;
+	this.lostT = false;
 }
 
 Timer.prototype.start = function(){
@@ -195,16 +205,32 @@ Timer.prototype.start = function(){
 Timer.prototype.resume = function(passTime){
 	this.pause = false;
 	clearInterval(this.timeInterval);
+	if (this.addedT){
+		passTime += 5000;
+	}
+	if (this.lostT){
+		passTime -= 5000;
+	}
+	console.log(passTime);
 	this.timeInterval = setInterval(()=>this.updateTime(passTime), 1000);
 
 };
 Timer.prototype.addTime = function(time){
-	clearInterval(this.timeInterval);
-	this.timeInterval = setInterval(()=>this.updateTime(time), 1000);
+	if (!this.pause){
+		clearInterval(this.timeInterval);
+		this.timeInterval = setInterval(()=>this.updateTime(time), 1000);
+	}else {
+		this.addedT = true;
+	}
 }
 Timer.prototype.lossTime = function(time){
-	clearInterval(this.timeInterval);
-	this.timeInterval = setInterval(()=>this.updateTime(time), 1000);
+	if (!this.pause){
+		clearInterval(this.timeInterval);
+		this.timeInterval = setInterval(()=>this.updateTime(time), 1000);
+	}else {
+		this.lostT = true;
+	}
+
 }
 Timer.prototype.pauseT = function(){
 	this.pause = true;
@@ -223,9 +249,14 @@ Timer.prototype.display = function(){
 	if (outTime){
 		textGenerater('YOU HAVE RAN OUT OF TIME!')
 	}
+	if (won){
+		$('.time').html('0');
+		clearInterval(this.timeInterval);
+	}
 }
 Timer.prototype.updateTime = function(time){
 	this.timeOut = this.currentTime + this.seconds*1000 - Date.parse(new Date()) + time;
+	console.log(this.timeOut);
 	if (!this.pause){
 		this.display()
 	}else{
