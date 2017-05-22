@@ -39,6 +39,12 @@ img {
     font-family: 'Ubuntu', sans-serif;
     color: #d6d6d6;
 }
+
+.score-board-container {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+}
 /*card is the grandparent. It needs perspective so that it's child can play in the 3d space*/
 .card {
     height: 200px;

@@ -23,35 +23,11 @@ $(document).ready(function(){
 	$('.reset').click(function(){
 		reset();
 		displayCard();
+		addClicks()
 	});
 
-	$('.card-holder').click(function(){
-		if ((!won) && (!outTime)){
-			GameT.start();
-			$(this).toggleClass('flip');
-			var cardsUp = $('.flip');
-			if(cardsUp.length == 2){
-				var card1 = cardsUp[0].children[0].children[0].src;
-				// var card2 = cardsUp[1].find('.card-front img');
-				var card2 = cardsUp[1].children[0].children[0].src;
-				if (card1 === card2){
-					cardsUp.removeClass('flip');
-					cardsUp.addClass('matched');
-					var matchedCards = $('.matched');
-					ability(card1, cardsUp);
-					if(matchedCards.length == gridSize){
-						won = true;
-						textGenerater('YOU HAVE WON THE GAME!');
-					}
-				}else {
-					setTimeout(function(){
-						cardsUp.removeClass('flip');
-					}, 1000);
-					updateScore();
-				}
-			}
-		}
-	});
+	addClicks()
+
 
 
 
@@ -117,12 +93,51 @@ function showCard(cardsUp){
 		}
 	}
 }
+
+function addClicks(){
+	$('.card-holder').click(function(){
+		if ((!won) && (!outTime)){
+			GameT.start();
+			$(this).toggleClass('flip');
+			var cardsUp = $('.flip');
+			if(cardsUp.length == 2){
+				var card1 = cardsUp[0].children[0].children[0].src;
+				// var card2 = cardsUp[1].find('.card-front img');
+				var card2 = cardsUp[1].children[0].children[0].src;
+				if (card1 === card2){
+					cardsUp.removeClass('flip');
+					cardsUp.addClass('matched');
+					var matchedCards = $('.matched');
+					ability(card1, cardsUp);
+					if(matchedCards.length == gridSize){
+						won = true;
+						textGenerater('YOU HAVE WON THE GAME!');
+					}
+				}else {
+					setTimeout(function(){
+						cardsUp.removeClass('flip');
+					}, 1000);
+					updateScore();
+				}
+			}
+		}
+	});
+}
 function updateScore(){
 	score--;
 	$('.score').text(score);
 }
 
-
+// function updateBoard(){
+//
+// }
+// function highScores(){
+// 	if (typeof(Storage) !== "undefined"){
+// 		var scoreBoard = $('#score-board-body').html();
+//
+// 		if (localStorage["score"])
+// 	}
+// }
 function reset(){
 	cards = createCard();
 	shuffleCard();
