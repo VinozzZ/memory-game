@@ -26,7 +26,6 @@ $(document).ready(function(){
 	});
 
 	$('.card-holder').click(function(){
-		console.log('reset');
 		if ((!won) && (!outTime)){
 			GameT.start();
 			$(this).toggleClass('flip');
@@ -99,15 +98,21 @@ function shuffleCard(){
 }
 
 function showCard(cardsUp){
-	var classList = cardsUp.attr("class").split(" ");
-	var currentCard = Number(classList[1]);
+	// var classList = cardsUp.attr("class").split(" ");
+	// var currentCard = Number(classList[1]);
+	// console.log(currentCard);
 	var showed = false;
+	var i = 0;
+	var nextCard = 0;
 	while (!showed) {
-		var i = Math.floor(Math.random()*16);
-		var nextCard = $(`.${currentCard+i}`);
-		if (!nextCard.hasClass('flip')){
+		i = Math.floor(Math.random()*16);
+		console.log(i)
+		nextCard = $(`.${i}`);
+		console.log(nextCard);
+		if ((!nextCard.hasClass('flip')) && (!nextCard.hasClass('matched'))){
 			nextCard.addClass('flip');
-			setTimeout(()=>nextCard.removeClass('flip'), 2000);
+			console.log('in if');
+			setTimeout(()=>nextCard.removeClass('flip'), 1000);
 			showed = true;
 		}
 	}
@@ -142,7 +147,7 @@ function ability(card1, cardsUp){
 	// display hero's line and ability
 	// 1. mercy: Heros never die. Time + 5s
 	if (card1.slice(-5,-4) == 4){
-		GameT.addTime(6000);
+		GameT.addTime();
 		textGenerater('Heros never die! +5s');
 		playSound(card1);
 	}
@@ -152,10 +157,10 @@ function ability(card1, cardsUp){
 		GameT.pauseT();
 		textGenerater(`Freeze, don't move!${nextLine}Time pause for 5s`);
 		playSound(card1);
-		setTimeout(()=>GameT.resume(6000), 5000);
+		setTimeout(()=>GameT.resume(), 5000);
 	}
 	else if(card1.slice(-5, -4) == 3){
-		GameT.lossTime(-4000);
+		GameT.lossTime();
 		textGenerater('Die, Die, Die!Lost 5s');
 		playSound(card1);
 	}
@@ -202,31 +207,33 @@ Timer.prototype.start = function(){
 		this.running = true;
 	}
 };
-Timer.prototype.resume = function(passTime){
+Timer.prototype.resume = function(){
 	this.pause = false;
 	clearInterval(this.timeInterval);
 	if (this.addedT){
-		passTime += 5000;
+		this.currentTime += 6000;
 	}
 	if (this.lostT){
-		passTime -= 5000;
+		this.currentTime -= 4000;
 	}
-	console.log(passTime);
-	this.timeInterval = setInterval(()=>this.updateTime(passTime), 1000);
+	this.currentTime += 6000;
+	this.timeInterval = setInterval(()=>this.updateTime(), 1000);
 
 };
-Timer.prototype.addTime = function(time){
+Timer.prototype.addTime = function(){
 	if (!this.pause){
+		this.currentTime += 6000;
 		clearInterval(this.timeInterval);
-		this.timeInterval = setInterval(()=>this.updateTime(time), 1000);
+		this.timeInterval = setInterval(()=>this.updateTime(), 1000);
 	}else {
 		this.addedT = true;
 	}
 }
-Timer.prototype.lossTime = function(time){
+Timer.prototype.lossTime = function(){
 	if (!this.pause){
+		this.currentTime -= 4000;
 		clearInterval(this.timeInterval);
-		this.timeInterval = setInterval(()=>this.updateTime(time), 1000);
+		this.timeInterval = setInterval(()=>this.updateTime(), 1000);
 	}else {
 		this.lostT = true;
 	}
@@ -254,9 +261,8 @@ Timer.prototype.display = function(){
 		clearInterval(this.timeInterval);
 	}
 }
-Timer.prototype.updateTime = function(time){
-	this.timeOut = this.currentTime + this.seconds*1000 - Date.parse(new Date()) + time;
-	console.log(this.timeOut);
+Timer.prototype.updateTime = function(){
+	this.timeOut = this.currentTime + this.seconds*1000 - Date.parse(new Date());
 	if (!this.pause){
 		this.display()
 	}else{
