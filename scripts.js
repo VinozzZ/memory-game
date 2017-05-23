@@ -80,6 +80,7 @@ function showCard(cardsUp){
 	var showed = false;
 	var i = 0;
 	var nextCard = 0;
+	if (cardsUp.length == 15)return;
 	while (!showed) {
 		i = Math.floor(Math.random()*16);
 		console.log(i)
@@ -112,6 +113,7 @@ function addClicks(){
 					if(matchedCards.length == gridSize){
 						won = true;
 						textGenerater('YOU HAVE WON THE GAME!');
+						setTimeout(victorySound, 2000);
 					}
 				}else {
 					setTimeout(function(){
@@ -202,6 +204,14 @@ function playSound(card1){
 	if(!audio) return;
 	audio[0].currentTime = 0;
 	audio[0].play();
+}
+
+function victorySound(){
+	if (won){
+		const victory = $('.victory');
+		victory[0].currentTime = 0;
+		victory[0].play();
+	}
 }
 function Timer(seconds){
 	this.seconds = seconds;
