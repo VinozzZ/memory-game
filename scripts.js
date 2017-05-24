@@ -53,9 +53,9 @@ function displayCard(){
 	for(let i = 0; i < gridSize; i++){
 		card = theCards.shift();
 		if (i % 4 == 0){
-			mgHTML += '<div class="card col-sm-3 col-sm-offset-2">';
+			mgHTML += '<div class="card">';
 		}else{
-			mgHTML += '<div class="card col-sm-3">';
+			mgHTML += '<div class="card">';
 		}
 			mgHTML += `<div class="card-holder ${i}">`;
 				mgHTML += '<div class="card-front">'+card+'</div>';

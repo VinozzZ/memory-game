@@ -12,6 +12,8 @@ img {
     opacity: 0;
     margin-top: 30px;
     transition: all 2s;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .show-game{
@@ -47,8 +49,8 @@ img {
 }
 /*card is the grandparent. It needs perspective so that it's child can play in the 3d space*/
 .card {
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
     padding: 0px;
     border: 2px solid black;
     perspective: 500px;
@@ -57,8 +59,8 @@ img {
 }
 
 .card-holder {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     /*the children will be absolute. So make this relative so they can have an anchor*/
     position: relative;
     /*so that the children know they are in 3d land*/
@@ -74,8 +76,8 @@ img {
 }
 
 .card-front {
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
     transform: rotateY(-180deg);
     /*margin: auto;*/
     /*vertical-align: middle;*/
@@ -84,8 +86,8 @@ img {
 
 .card-back {
     background: url('back.png') no-repeat 50%; /*50% is background-location*/
-    height: 200px;
-    min-width: 200px;
+    height: 250px;
+    min-width: 250px;
 }
 
 .flip {
