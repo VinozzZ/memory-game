@@ -180,7 +180,11 @@ function reset(){
 	$('.score').text(score);
 	$('.card-holder').removeClass('flip');
 	$('.card-holder').removeClass('matched');
+	$('body').css({
+		'background': "url(background.jpg) no-repeat",
+	});
 	$('.mg-contents').css('filter', 'none');
+	$('.mg-contents').show();
 	$('.message-container').hide();
 }
 
