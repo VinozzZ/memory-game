@@ -27,6 +27,9 @@ $(document).ready(function(){
 	});
 
 	addClicks()
+	// $('.name-btn').click(function(){
+	// 	updateBoard();
+	// })
 
 
 
@@ -112,8 +115,13 @@ function addClicks(){
 					ability(card1, cardsUp);
 					if(matchedCards.length == gridSize){
 						won = true;
+						$('body').css({
+							'background': "url(won-bg.jpg) no-repeat",
+							'transition': "all 2s",
+						});
+						$('.mg-contents').css('display', 'none');
 						textGenerater('YOU HAVE WON THE GAME!');
-						setTimeout(victorySound, 2000);
+						setTimeout(victorySound, 5000);
 					}
 				}else {
 					setTimeout(function(){
@@ -128,16 +136,32 @@ function addClicks(){
 function updateScore(){
 	score--;
 	$('.score').text(score);
+	localStorage.setItem('lastscore', score);
 }
-
+//
 // function updateBoard(){
+// 	$('.name').submit(function(e){
+// 		e.preventDefault();
+// 		var userName = $('.name-input').val();
+// 		if (userName === '') return;
+// 		var newHTML = ''
+// 		newHTML += '<tr>';
+// 			newHTML += `<td>${userName}</td>`;
+// 			newHTML += `<td>${score}</td>`;
+// 		newHTML += '</tr>';
+// 		$('#score-board-body').append(newHTML);
+// 	})
 //
 // }
 // function highScores(){
 // 	if (typeof(Storage) !== "undefined"){
 // 		var scoreBoard = $('#score-board-body').html();
-//
-// 		if (localStorage["score"])
+// 		var lastscore = localStorage["score"];
+// 		var newHTML = ''
+// 		if (lastscore){
+// 			newHTML += '<tr>'
+// 				newHTML += `<td>${}
+// 		}
 // 	}
 // }
 function reset(){
@@ -200,7 +224,6 @@ function textGenerater(text){
 function playSound(card1){
 	const currentCard = card1.slice(-5, -4);
 	const audio = $(`.sound-${currentCard}`);
-	console.log(audio);
 	if(!audio) return;
 	audio[0].currentTime = 0;
 	audio[0].play();

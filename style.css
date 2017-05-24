@@ -118,6 +118,7 @@ img {
     position: absolute;
     top:25%;
     left:44%;
+    z-index: 1;
 }
 
 .message-bg, .message-text{
@@ -129,8 +130,14 @@ img {
 .message-bg {
     background-color: #d6d6d6;
     opacity: 0.5;
+    z-index: 2;
 }
 .message-text {
     top:30%;
-    left:10%
+    left:10%;
+    z-index: 3;
 }
+
+/*.input-container {
+    z-index: 4;
+}*/
