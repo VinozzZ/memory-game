@@ -14,13 +14,13 @@ var outTime = false;
 $(document).ready(function(){
 	displayCard();
 
-	$('.play-button').click(function(){
-		$('.start-container img').css('opacity', '0');
-		setTimeout(()=>$('.start-container').hide(), 1000);
-		setTimeout(()=>$('.mg-contents').addClass('show-game'), 1500)
-		setTimeout(()=>$('.menu-container').show(), 2500);
+	$('#start').click(function(){
+		$('body').addClass('begin')
+		// setTimeout(()=>$('.start-container').hide(), 1000);
+		// setTimeout(()=>$('.mg-contents').addClass('show-game'), 1500)
+		// setTimeout(()=>$('.menu-container').show(), 2500);
 	})
-	$('.reset').click(function(){
+	$('#reset').click(function(){
 		reset();
 		displayCard();
 		addClicks()
@@ -39,7 +39,7 @@ $(document).ready(function(){
 function createCard(){
 	// add function for different difficulty levels
 	for (let i = 1; i < 9; i++){
-		var card = `<img src="ow/easy/easy-${i}.png"/>`;
+		var card = `<img src="/images/easy/easy-${i}.png"/>`;
 		cards.push(card);
 		cards.push(card);
 		}
@@ -48,6 +48,7 @@ function createCard(){
 function displayCard(){
 	console.log('reset');
 	var card = 0;
+	var cardBack = '<img src="/images/back.png">'
 	var mgHTML = '';
 	shuffleCard()
 	for(let i = 0; i < gridSize; i++){
@@ -59,7 +60,7 @@ function displayCard(){
 		}
 			mgHTML += `<div class="card-holder ${i}">`;
 				mgHTML += '<div class="card-front">'+card+'</div>';
-				mgHTML += '<div class="card-back"></div>';
+				mgHTML += '<div class="card-back">' + cardBack+ '</div>';
 			mgHTML += '</div>';
 		mgHTML += '</div>';
 	}
@@ -80,19 +81,19 @@ function showCard(cardsUp){
 	// var classList = cardsUp.attr("class").split(" ");
 	// var currentCard = Number(classList[1]);
 	// console.log(currentCard);
+
 	var showed = false;
 	var i = 0;
 	var nextCard = 0;
-	if (cardsUp.length == 15)return;
+	var cardsUpTotal = $('.matched');
+	console.log(cardsUpTotal);
+	if (cardsUpTotal.length >= 14) return 1;
 	while (!showed) {
 		i = Math.floor(Math.random()*16);
-		console.log(i)
 		nextCard = $(`.${i}`);
-		console.log(nextCard);
 		if ((!nextCard.hasClass('flip')) && (!nextCard.hasClass('matched'))){
 			nextCard.addClass('flip');
-			console.log('in if');
-			setTimeout(()=>nextCard.removeClass('flip'), 1000);
+			setTimeout(()=>nextCard.removeClass('flip'), 500);
 			showed = true;
 		}
 	}
@@ -100,6 +101,7 @@ function showCard(cardsUp){
 
 function addClicks(){
 	$('.card-holder').click(function(){
+
 		if ((!won) && (!outTime)){
 			GameT.start();
 			$(this).toggleClass('flip');
@@ -126,9 +128,13 @@ function addClicks(){
 				}else {
 					setTimeout(function(){
 						cardsUp.removeClass('flip');
-					}, 1000);
+					}, 850);
 					updateScore();
 				}
+			}else{
+				setTimeout(()=>{
+					cardsUp.removeClass('flip');
+				}, 850);
 			}
 		}
 	});

@@ -1,0 +1,31 @@
+include header
+body
+	div.start-container
+		h1 Overwatch Card Match
+		p Click&nbsp;on a card to flip it&nbsp;over. If you turn over two matching&nbsp;cards, you get to keep&nbsp;them; if&nbsp;they don't match, they get flipped&nbsp;back. Every&nbsp;fifteen seconds, the&nbsp;cards will&nbsp;reshuffle. Match all sixteen cards to&nbsp;win! View&nbsp;in full-page mode to&nbsp;play.
+		button#start Start
+	div.game-container
+		div.cards-container
+			div.mg-contents
+		div.menu-container
+			div.score-container Score
+				span.score
+			div.time-container Time 
+				span.time :
+			div.reset-container
+				button#reset Reset
+			div.message-container
+				div.message-text-box
+					div.message-text
+
+			div.username-container
+				form.name
+					input.name-input(type="text" placeholder="Please enter your name")
+					input.name-btn(type="submit")
+	audio.sound-1(src="voiceline/Mei.wav")
+	audio.sound-4(src="voiceline/Mercy.wav")
+	audio.sound-3(src="voiceline/Reaper.wav")
+	audio.sound-2(src="voiceline/widow.wav")
+	audio.victory(src="voiceline/Victory.mp3")
+
+	
