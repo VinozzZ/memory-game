@@ -13,9 +13,13 @@ var outTime = false;
 // All code will wait until the DOM is ready!
 $(document).ready(function(){
 	displayCard();
-
+	$cards = $('.mg-contents');
+	$cards.isotope({
+		itemSelector:'.card',
+	});
 	$('#start').click(function(){
-		$('body').addClass('begin')
+		$('body').addClass('begin');
+		$cards.isotope('shuffle');
 		// setTimeout(()=>$('.start-container').hide(), 1000);
 		// setTimeout(()=>$('.mg-contents').addClass('show-game'), 1500)
 		// setTimeout(()=>$('.menu-container').show(), 2500);
@@ -23,6 +27,7 @@ $(document).ready(function(){
 	$('#reset').click(function(){
 		reset();
 		displayCard();
+		// $cards.isotope('shuffle');
 		addClicks()
 	});
 
@@ -30,7 +35,6 @@ $(document).ready(function(){
 	// $('.name-btn').click(function(){
 	// 	updateBoard();
 	// })
-
 
 
 
@@ -46,7 +50,6 @@ function createCard(){
 	return cards;
 }
 function displayCard(){
-	console.log('reset');
 	var card = 0;
 	var cardBack = '<img src="/images/back.png">'
 	var mgHTML = '';
