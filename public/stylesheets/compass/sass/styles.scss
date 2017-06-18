@@ -48,7 +48,7 @@ img{
 		min-width: 180px;
 		height:64px;
 		font-family: $font;
-		border-radius: 2px;
+		border-radius: 16px;
 		font-size: 20px;
 		background-color:#fc9c33;
 	}
@@ -64,6 +64,7 @@ img{
 		margin-top: 1%;
 		height: 100%;
 		opacity: 0;
+		z-index:1000;
 		@extend .flex-box-center;
 		flex-direction: column;
 		justify-content: space-around;
@@ -73,7 +74,7 @@ img{
 			background-color: #F2B880;
 			border: 0;
 			font-family: $font;
-			border-radius: 2px;
+			border-radius: 16px;
 			font-size: 20px;
 			min-width: 100px;
 			height:40px;
@@ -84,8 +85,48 @@ img{
 		height:100%;
 		padding-left: 10%;
 	}
+}
+.scoreboard-container{
+	position:absolute;
+	height:100vh;
+	width:100vw;
+	background-color: rgba($grey, .8);
+	z-index:999;
+	// display: none;
+	display:flex;
+	flex-direction: column;
+	align-items:center;
+	.score-board{
+		margin-top: 15%;
+		th{
+			padding-right: 40%;
+		}
+	}	
 	.username-container{
-		opacity: 0;
+		// opacity: 0;
+		.name{
+			margin-bottom: 0.5em;
+			input {
+				margin-top: 5px;
+				padding: 6px 15px;
+				border:1px solid #999;
+				border-radius: 16px;
+				line-height: 20px;
+				font-size: 14px;
+				color: #222;
+			}
+  			button {
+  				cursor: pointer;
+				background-color: #F2B880;
+				border: 0;
+				font-family: $font;
+				border-radius:16px;
+				font-size: 14px;
+				min-width: 80px;
+				height:35px;
+				margin-left: 5px;
+  			}
+  		}
 	}
 }
 .cards-container{

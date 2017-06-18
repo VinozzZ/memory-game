@@ -10,8 +10,10 @@ var timerInterval = 0;
 var won = false;
 var GameT = new Timer(60);
 var outTime = false;
+var username;
 // All code will wait until the DOM is ready!
 $(document).ready(function(){
+	$('.scoreboard-container').hide();
 	displayCard();
 	$cards = $('.mg-contents');
 	$cards.isotope({
@@ -32,9 +34,18 @@ $(document).ready(function(){
 	});
 
 	addClicks()
-	// $('.name-btn').click(function(){
-	// 	updateBoard();
-	// })
+	$('.name-btn').click(function(){
+		username = $('.name-input').val();
+		$.ajax({
+			method: "POST",
+			url: "userInput",
+			data:{score: score, username: username},
+			success: function(result){
+				console.log('success');
+				updateBoard();
+			}
+		})
+	});
 
 
 
@@ -121,10 +132,11 @@ function addClicks(){
 					if(matchedCards.length == gridSize){
 						won = true;
 						$('body').css({
-							'background': "url(won-bg.jpg) no-repeat",
 							'transition': "all 2s",
 						});
 						$('.mg-contents').css('display', 'none');
+						// $('.username-container').fadeIn();
+						$(".scoreboard-container").fadeIn();
 						textGenerater('YOU HAVE WON THE GAME!');
 						setTimeout(victorySound, 5000);
 					}
@@ -145,21 +157,16 @@ function addClicks(){
 function updateScore(){
 	score--;
 	$('.score').text(score);
-	localStorage.setItem('lastscore', score);
 }
 //
-// function updateBoard(){
-// 	$('.name').submit(function(e){
-// 		e.preventDefault();
-// 		var userName = $('.name-input').val();
-// 		if (userName === '') return;
-// 		var newHTML = ''
-// 		newHTML += '<tr>';
-// 			newHTML += `<td>${userName}</td>`;
-// 			newHTML += `<td>${score}</td>`;
-// 		newHTML += '</tr>';
-// 		$('#score-board-body').append(newHTML);
-// 	})
+function updateBoard(){
+	var newHTML = ''
+	newHTML += '<tr>';
+		newHTML += `<td>${username}</td>`;
+		newHTML += `<td>${score}</td>`;
+	newHTML += '</tr>';
+	$('.userdata').append(newHTML);
+}
 //
 // }
 // function highScores(){
@@ -183,15 +190,13 @@ function reset(){
 	timerInterval = 0;
 	won = false;
 	GameT.clearInterval();
-	$('.time').html('0');
+	$('.time').html('');
 	GameT = new Timer(60);
 	outTime = false;
-	$('.score').text(score);
+	$(".scoreboard-container").hide();
+	$('.score').text('');
 	$('.card-holder').removeClass('flip');
 	$('.card-holder').removeClass('matched');
-	$('body').css({
-		'background': "url(background.jpg) no-repeat",
-	});
 	$('.mg-contents').css('filter', 'none');
 	$('.mg-contents').show();
 	$('.message-container').hide();

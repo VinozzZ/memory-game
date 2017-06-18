@@ -17,11 +17,18 @@ body
 			div.message-container
 				div.message-text-box
 					div.message-text
-
-			div.username-container
-				form.name
-					input.name-input(type="text" placeholder="Please enter your name")
-					input.name-btn(type="submit")
+	div.scoreboard-container
+		div.score-board
+			table
+				thead
+					tr
+						th Name
+						th Score
+				tbody.userdata
+		div.username-container
+			form.name
+				input.name-input(type="text" name="username" placeholder="Username")
+				button.name-btn(type="button") Submit
 	audio.sound-1(src="voiceline/Mei.wav")
 	audio.sound-4(src="voiceline/Mercy.wav")
 	audio.sound-3(src="voiceline/Reaper.wav")
