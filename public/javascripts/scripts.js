@@ -10,11 +10,12 @@ var timerInterval = 0;
 var won = false;
 var GameT = new Timer(60);
 var outTime = false;
-var username;
 var scoreBoard = [];
 // All code will wait until the DOM is ready!
 $(document).ready(function(){
 	$('.scoreboard-container').addClass('start');
+	createScoreBoard();
+	console.log(scoreBoard);
 	displayCard();
 	$cards = $('.mg-contents');
 	$cards.isotope({
@@ -168,18 +169,20 @@ function createScoreBoard(){
 		scoreBoard.push(userData);
 	}
 }
-function checkScore(){
+function checkScore(username){
 	var updated = false;
+	var counter = 0;
+	console.log(scoreBoard);
 	scoreBoard.map(oldData=>{
+		counter++;
 		if(score >= oldData.score && !updated){
+			console.log('test');
 			updated = true;
-			oldData.score = score;
-			oldData.username = username;
 			return true;
+		}else if (!updated && scoreBoard.length >= 10 && counter == scoreBoard.length) {
+			return false;
 		}
 	});
-	if (scoreBoard.length < 10) return true;
-	if (!updated && scoreBoard.length >= 10) return false;
 };
 
 function updateBoard(){
@@ -270,8 +273,8 @@ function submitAlert(){
   			showLoaderOnConfirm: true,
   			background: '#ebebeb',
   			preConfirm: function (username) {
-  				createScoreBoard();
-  				if(checkScore()){
+  				console.log(checkScore(username));
+  				if(checkScore(username)){
   					$.ajax({
 						method: "POST",
 						url: "userInput",
@@ -290,6 +293,7 @@ function submitAlert(){
   			},
   			allowOutsideClick: false
 		}).then(function (username) {
+			// console.log(username);
 			updateBoard()
 			$('.score-board').css('opacity', '1');
 		});
