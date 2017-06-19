@@ -11,9 +11,6 @@ body
 		h1 Overwatch Card Match
 		p Click&nbsp;on a card to flip it&nbsp;over. If you turn over two matching&nbsp;cards, you get to keep&nbsp;them; if&nbsp;they don't match, they get flipped&nbsp;back. Every&nbsp;fifteen seconds, the&nbsp;cards will&nbsp;reshuffle. Match all sixteen cards to&nbsp;win! View&nbsp;in full-page mode to&nbsp;play.
 		button#start Start
-	div.game-container
-		div.cards-container
-			div.mg-contents
 	div.menu-container
 		div.score-container Score
 			span.score
@@ -21,9 +18,12 @@ body
 			span.time :
 		div.reset-container
 			button#reset Reset
-		div.message-container
-			div.message-text-box
-				div.message-text
+	div.message-container
+		div.message-text-box
+			div.message-text
+	div.game-container
+		div.cards-container
+			div.mg-contents
 	div.scoreboard-container
 		div.score-board
 			table

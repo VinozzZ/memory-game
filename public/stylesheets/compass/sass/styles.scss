@@ -86,6 +86,22 @@ img{
 		height:40px;
 	}
 }
+.message-container{
+	position: absolute;
+	height:5%;
+	width:25%;
+	top:5%;
+	display:none;
+	left:45%;
+	background-color: #F2B880;
+	border: 0;
+	font-family: $font;
+	border-radius: 16px;
+	font-size: 20px;
+	text-align: center;
+	line-height:20px;
+
+}
 .scoreboard-container{
 	position:absolute;
 	height:100vh;

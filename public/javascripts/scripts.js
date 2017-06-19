@@ -134,6 +134,9 @@ function addClicks(){
 					ability(card1, cardsUp);
 					if(matchedCards.length == gridSize){
 						won = true;
+						score += parseInt($('.time').html());
+						updateScore();
+						console.log(score);
 						$('body').css({
 							'transition': "all 2s",
 						});
@@ -160,7 +163,9 @@ function addClicks(){
 	});
 }
 function updateScore(){
-	score--;
+	if(!won){
+		score--;
+	}
 	$('.score').text(score);
 }
 function createScoreBoard(){
