@@ -16,7 +16,6 @@ var scoreBoard = [];
 $(document).ready(function(){
 	$('.scoreboard-container').addClass('start');
 	displayCard();
-	createScoreBoard()
 	$cards = $('.mg-contents');
 	$cards.isotope({
 		itemSelector:'.card',
@@ -36,28 +35,20 @@ $(document).ready(function(){
 	});
 
 	addClicks()
-	$('.name-btn').click(function(){
-		username = $('.name-input').val();
-		var spaceReg = /\s/g;
-		var result = username.match(spaceReg);
-		if(username.length <= 2 || result != null){
-			textGenerater();
-		}else{
-			if(checkScore()){
-				$.ajax({
-					method: "POST",
-					url: "userInput",
-					data:{score: score, username: username},
-					success: function(result){
-					// console.log(result);
-					}
-				})
-			}
-			$('.score-board').css('opacity', '1');
-			updateBoard();
-		}
-		// console.log(scoreBoard);
-	});
+
+	// $('.name-btn').click(function(){
+	// 	username = $('.name-input').val();
+	// 	var spaceReg = /\s/g;
+	// 	var result = username.match(spaceReg);
+	// 	if(username.length <= 2 || result != null){
+	// 	}else{
+	// 		if(checkScore()){
+	// 		}
+	// 		$('.score-board').css('opacity', '1');
+	// 		updateBoard();
+	// 	}
+	// 	// console.log(scoreBoard);
+	// });
 
 
 
@@ -149,7 +140,7 @@ function addClicks(){
 						// $('.username-container').fadeIn();
 						$(".scoreboard-container").removeClass('start');
 						$(".scoreboard-container").addClass('won');
-						textGenerater('YOU HAVE WON THE GAME!');
+						submitAlert();
 						setTimeout(victorySound, 5000);
 					}
 				}else {
@@ -264,18 +255,48 @@ function ability(card1, cardsUp){
 	}
 }
 
-function textGenerater(text){
-	if ((won) || (outTime)){
+function submitAlert(){
+	if(won){
 		$('.mg-contents').css('filter', 'blur(5px)');
-		swal({
+		sweetAlert({
 			allowEscapeKey: false,
-			allowOutsideClick: false,
+			input:'text',
+			inputPlaceholder: 'Please enter your username',
 			title: 'Congratulations! You Won!',
-			text: 'With ' + moves + ' Moves and ' + score + ' Stars.\nBoom Shaka Lak!',
 			type: 'success',
-			confirmButtonColor: '#9BCB3C',
+			confirmButtonColor: '#fc9c33',
+			showCancelButton: true,
+  			confirmButtonText: 'Submit',
+  			showLoaderOnConfirm: true,
+  			background: '#ebebeb',
+  			preConfirm: function (username) {
+  				createScoreBoard();
+  				if(checkScore()){
+  					$.ajax({
+						method: "POST",
+						url: "userInput",
+						data:{score: score, username: username},
+					});
+  				}
+    			return new Promise(function (resolve, reject) {
+      				setTimeout(function() {
+        				if (username === 'taken') {
+          					reject('This email is already taken.')
+        				} else {
+          					resolve()
+        				}
+      				}, 2000)
+    			})
+  			},
+  			allowOutsideClick: false
+		}).then(function (username) {
+			updateBoard()
+			$('.score-board').css('opacity', '1');
 		});
 	}
+}
+function textGenerater(text){
+		
 	setTimeout(()=>$('.message-container').show(), 500);
 	$('.message-text').html(text);
 	setTimeout(()=>$('.message-container').hide(), 3000);

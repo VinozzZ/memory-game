@@ -9,6 +9,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var serverInfo = require('./config/config');
 var app = express();
+
 app.use(expressParser({
   secret: serverInfo.session.secret,
   resave: serverInfo.session.resave,
