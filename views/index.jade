@@ -1,3 +1,10 @@
+script.
+	var scoreArray = "#{scoreArray}";
+	scoreArray = scoreArray.split(',');
+	var usernameArray = "#{usernameArray}";
+	usernameArray = usernameArray.split(',');
+	console.log(usernameArray);
+	console.log(scoreArray);
 include header
 body
 	div.start-container
@@ -7,16 +14,16 @@ body
 	div.game-container
 		div.cards-container
 			div.mg-contents
-		div.menu-container
-			div.score-container Score
-				span.score
-			div.time-container Time 
-				span.time :
-			div.reset-container
-				button#reset Reset
-			div.message-container
-				div.message-text-box
-					div.message-text
+	div.menu-container
+		div.score-container Score
+			span.score
+		div.time-container Time 
+			span.time :
+		div.reset-container
+			button#reset Reset
+		div.message-container
+			div.message-text-box
+				div.message-text
 	div.scoreboard-container
 		div.score-board
 			table
@@ -26,9 +33,11 @@ body
 						th Score
 				tbody.userdata
 		div.username-container
+			div.winning-msg
 			form.name
 				input.name-input(type="text" name="username" placeholder="Username")
 				button.name-btn(type="button") Submit
+			div.form-msg
 	audio.sound-1(src="voiceline/Mei.wav")
 	audio.sound-4(src="voiceline/Mercy.wav")
 	audio.sound-3(src="voiceline/Reaper.wav")

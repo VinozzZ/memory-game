@@ -31,7 +31,7 @@ img {
 }
 
 /* line 29, ../compass/sass/styles.scss */
-.flex-box-center, body, .start-container, .game-container, .game-container .menu-container, .cards-container {
+.flex-box-center, body, .start-container, .game-container, .menu-container, .cards-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,17 +71,24 @@ img {
   transition: all 2s;
 }
 /* line 63, ../compass/sass/styles.scss */
-.game-container .menu-container {
+.game-container .mg-contents {
+  width: 100%;
+  height: 100%;
+  padding-left: 10%;
+}
+
+/* line 69, ../compass/sass/styles.scss */
+.menu-container {
   margin-top: 1%;
   height: 100%;
   opacity: 0;
-  z-index: 1000;
+  z-index: 1001;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
 }
-/* line 72, ../compass/sass/styles.scss */
-.game-container .menu-container #reset {
+/* line 78, ../compass/sass/styles.scss */
+.menu-container #reset {
   cursor: pointer;
   background-color: #F2B880;
   border: 0;
@@ -91,12 +98,6 @@ img {
   min-width: 100px;
   height: 40px;
 }
-/* line 83, ../compass/sass/styles.scss */
-.game-container .mg-contents {
-  width: 100%;
-  height: 100%;
-  padding-left: 10%;
-}
 
 /* line 89, ../compass/sass/styles.scss */
 .scoreboard-container {
@@ -104,24 +105,25 @@ img {
   height: 100vh;
   width: 100vw;
   background-color: rgba(235, 235, 235, 0.8);
-  z-index: 999;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 /* line 99, ../compass/sass/styles.scss */
 .scoreboard-container .score-board {
+  opacity: 0;
   margin-top: 15%;
 }
-/* line 101, ../compass/sass/styles.scss */
+/* line 102, ../compass/sass/styles.scss */
 .scoreboard-container .score-board th {
   padding-right: 40%;
 }
-/* line 107, ../compass/sass/styles.scss */
+/* line 108, ../compass/sass/styles.scss */
 .scoreboard-container .username-container .name {
   margin-bottom: 0.5em;
 }
-/* line 109, ../compass/sass/styles.scss */
+/* line 110, ../compass/sass/styles.scss */
 .scoreboard-container .username-container .name input {
   margin-top: 5px;
   padding: 6px 15px;
@@ -131,7 +133,7 @@ img {
   font-size: 14px;
   color: #222;
 }
-/* line 118, ../compass/sass/styles.scss */
+/* line 119, ../compass/sass/styles.scss */
 .scoreboard-container .username-container .name button {
   cursor: pointer;
   background-color: #F2B880;
@@ -143,8 +145,16 @@ img {
   height: 35px;
   margin-left: 5px;
 }
-
 /* line 132, ../compass/sass/styles.scss */
+.scoreboard-container.start {
+  display: none;
+}
+/* line 135, ../compass/sass/styles.scss */
+.scoreboard-container .won {
+  display: flex;
+}
+
+/* line 139, ../compass/sass/styles.scss */
 .cards-container {
   height: 100%;
   width: 100%;
@@ -153,7 +163,7 @@ img {
   appearance: none;
 }
 
-/* line 141, ../compass/sass/styles.scss */
+/* line 148, ../compass/sass/styles.scss */
 .card {
   cursor: pointer;
   height: 10rem;
@@ -166,7 +176,7 @@ img {
   margin: 1%;
 }
 
-/* line 153, ../compass/sass/styles.scss */
+/* line 160, ../compass/sass/styles.scss */
 .card-holder {
   width: 10rem;
   height: 10rem;
@@ -177,7 +187,7 @@ img {
   transition: 500ms all;
 }
 
-/* line 163, ../compass/sass/styles.scss */
+/* line 170, ../compass/sass/styles.scss */
 .card-front, .card-back {
   position: absolute;
   top: 0;
@@ -186,7 +196,7 @@ img {
   backface-visibility: hidden;
 }
 
-/* line 171, ../compass/sass/styles.scss */
+/* line 178, ../compass/sass/styles.scss */
 .card-front {
   height: 10rem;
   width: 10rem;
@@ -195,7 +205,7 @@ img {
   /*vertical-align: middle;*/
 }
 
-/* line 180, ../compass/sass/styles.scss */
+/* line 187, ../compass/sass/styles.scss */
 .card-back {
   background: url("back.png") no-repeat 50%;
   /*50% is background-location*/
@@ -203,13 +213,13 @@ img {
   min-width: 10rem;
 }
 
-/* line 186, ../compass/sass/styles.scss */
+/* line 193, ../compass/sass/styles.scss */
 .flip {
   transform: rotateY(180deg);
   /*margin: auto;*/
 }
 
-/* line 191, ../compass/sass/styles.scss */
+/* line 198, ../compass/sass/styles.scss */
 .matched {
   transform: rotateY(180deg);
 }
