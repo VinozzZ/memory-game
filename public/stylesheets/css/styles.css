@@ -74,10 +74,11 @@ img {
 .game-container .mg-contents {
   width: 100%;
   height: 100%;
-  padding-left: 10%;
+  padding-right: 10vw;
+  margin-top: 20vh;
 }
 
-/* line 69, ../compass/sass/styles.scss */
+/* line 70, ../compass/sass/styles.scss */
 .menu-container {
   margin-top: 1%;
   height: 100%;
@@ -87,7 +88,7 @@ img {
   justify-content: space-around;
   align-items: flex-start;
 }
-/* line 78, ../compass/sass/styles.scss */
+/* line 79, ../compass/sass/styles.scss */
 .menu-container #reset {
   cursor: pointer;
   background-color: #F2B880;
@@ -99,14 +100,14 @@ img {
   height: 40px;
 }
 
-/* line 89, ../compass/sass/styles.scss */
+/* line 90, ../compass/sass/styles.scss */
 .message-container {
   position: absolute;
   height: 5%;
   width: 25%;
   top: 5%;
   display: none;
-  left: 45%;
+  left: 40%;
   background-color: #F2B880;
   border: 0;
   font-family: "brandon-grotesque", "Brandon Grotesque", "Brandon Text", "Futura", "Source Sans Pro", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
@@ -116,7 +117,7 @@ img {
   line-height: 20px;
 }
 
-/* line 105, ../compass/sass/styles.scss */
+/* line 106, ../compass/sass/styles.scss */
 .scoreboard-container {
   position: absolute;
   height: 100vh;
@@ -127,20 +128,20 @@ img {
   flex-direction: column;
   align-items: center;
 }
-/* line 115, ../compass/sass/styles.scss */
+/* line 116, ../compass/sass/styles.scss */
 .scoreboard-container .score-board {
   opacity: 0;
   margin-top: 15%;
 }
-/* line 118, ../compass/sass/styles.scss */
+/* line 119, ../compass/sass/styles.scss */
 .scoreboard-container .score-board th {
   padding-right: 40%;
 }
-/* line 124, ../compass/sass/styles.scss */
+/* line 125, ../compass/sass/styles.scss */
 .scoreboard-container .username-container .name {
   margin-bottom: 0.5em;
 }
-/* line 126, ../compass/sass/styles.scss */
+/* line 127, ../compass/sass/styles.scss */
 .scoreboard-container .username-container .name input {
   margin-top: 5px;
   padding: 6px 15px;
@@ -150,7 +151,7 @@ img {
   font-size: 14px;
   color: #222;
 }
-/* line 135, ../compass/sass/styles.scss */
+/* line 136, ../compass/sass/styles.scss */
 .scoreboard-container .username-container .name button {
   cursor: pointer;
   background-color: #F2B880;
@@ -162,30 +163,28 @@ img {
   height: 35px;
   margin-left: 5px;
 }
-/* line 148, ../compass/sass/styles.scss */
+/* line 149, ../compass/sass/styles.scss */
 .scoreboard-container.start {
   display: none;
 }
-/* line 151, ../compass/sass/styles.scss */
+/* line 152, ../compass/sass/styles.scss */
 .scoreboard-container .won {
   display: flex;
 }
 
-/* line 155, ../compass/sass/styles.scss */
+/* line 156, ../compass/sass/styles.scss */
 .cards-container {
-  height: 100%;
-  width: 100%;
-  max-width: 865px;
+  height: 60vh;
+  width: 50vw;
   flex-flow: row wrap;
   appearance: none;
 }
 
-/* line 164, ../compass/sass/styles.scss */
+/* line 165, ../compass/sass/styles.scss */
 .card {
   cursor: pointer;
-  height: 10rem;
-  width: 10rem;
-  border: 2px solid black;
+  height: 10vw;
+  width: 10vw;
   perspective: 500px;
   background-color: #ebebeb;
   border-radius: 5%;
@@ -193,10 +192,10 @@ img {
   margin: 1%;
 }
 
-/* line 176, ../compass/sass/styles.scss */
+/* line 177, ../compass/sass/styles.scss */
 .card-holder {
-  width: 10rem;
-  height: 10rem;
+  width: 10vw;
+  height: 10vw;
   /*the children will be absolute. So make this relative so they can have an anchor*/
   position: relative;
   /*so that the children know they are in 3d land*/
@@ -204,7 +203,7 @@ img {
   transition: 500ms all;
 }
 
-/* line 186, ../compass/sass/styles.scss */
+/* line 187, ../compass/sass/styles.scss */
 .card-front, .card-back {
   position: absolute;
   top: 0;
@@ -213,30 +212,29 @@ img {
   backface-visibility: hidden;
 }
 
-/* line 194, ../compass/sass/styles.scss */
+/* line 195, ../compass/sass/styles.scss */
 .card-front {
-  height: 10rem;
-  width: 10rem;
+  height: 10vw;
+  width: 10vw;
   transform: rotateY(-180deg);
   /*margin: auto;*/
   /*vertical-align: middle;*/
 }
 
-/* line 203, ../compass/sass/styles.scss */
+/* line 204, ../compass/sass/styles.scss */
 .card-back {
   background: url("back.png") no-repeat 50%;
   /*50% is background-location*/
-  height: 10rem;
-  min-width: 10rem;
+  height: 10vw;
 }
 
-/* line 209, ../compass/sass/styles.scss */
+/* line 210, ../compass/sass/styles.scss */
 .flip {
   transform: rotateY(180deg);
   /*margin: auto;*/
 }
 
-/* line 214, ../compass/sass/styles.scss */
+/* line 215, ../compass/sass/styles.scss */
 .matched {
   transform: rotateY(180deg);
 }
