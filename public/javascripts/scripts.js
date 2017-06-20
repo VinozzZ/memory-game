@@ -14,7 +14,7 @@ var scoreBoard = [];
 // All code will wait until the DOM is ready!
 $(document).ready(function(){
 	$('.scoreboard-container').addClass('start');
-	createScoreBoard();
+	// createScoreBoard();
 	console.log(scoreBoard);
 	displayCard();
 	$cards = $('.mg-contents');
@@ -168,27 +168,27 @@ function updateScore(){
 	}
 	$('.score').text(score);
 }
-function createScoreBoard(){
-	for(let i = 0; i < usernameArray.length; i++){
-		var userData={'username': usernameArray[i], 'score': scoreArray[i]};
-		scoreBoard.push(userData);
-	}
-}
-function checkScore(username){
-	var updated = false;
-	var counter = 0;
-	console.log(scoreBoard);
-	scoreBoard.map(oldData=>{
-		counter++;
-		if(score >= oldData.score && !updated){
-			console.log('test');
-			updated = true;
-			return true;
-		}else if (!updated && scoreBoard.length >= 10 && counter == scoreBoard.length) {
-			return false;
-		}
-	});
-};
+// function createScoreBoard(){
+// 	for(let i = 0; i < usernameArray.length; i++){
+// 		var userData={'username': usernameArray[i], 'score': scoreArray[i]};
+// 		scoreBoard.push(userData);
+// 	}
+// }
+// function checkScore(username){
+// 	var updated = false;
+// 	var counter = 0;
+// 	console.log(scoreBoard);
+// 	scoreBoard.map(oldData=>{
+// 		counter++;
+// 		if(score >= oldData.score && !updated){
+// 			console.log('test');
+// 			updated = true;
+// 			return true;
+// 		}else if (!updated && scoreBoard.length >= 10 && counter == scoreBoard.length) {
+// 			return false;
+// 		}
+// 	});
+// };
 
 function updateBoard(){
 	scoreBoard.map(data=>{
@@ -278,15 +278,16 @@ function submitAlert(){
   			showLoaderOnConfirm: true,
   			background: '#ebebeb',
   			preConfirm: function (username) {
-  				console.log(checkScore(username));
-  				if(checkScore(username)){
-  					$.ajax({
+  				// console.log(checkScore(username));
+    			return new Promise(function (resolve, reject) {
+    				$.ajax({
 						method: "POST",
 						url: "userInput",
 						data:{score: score, username: username},
+						success:function(resp){
+							console.log(resp);
+						}
 					});
-  				}
-    			return new Promise(function (resolve, reject) {
       				setTimeout(function() {
         				if (username === 'taken') {
           					reject('This email is already taken.')

@@ -30,24 +30,46 @@ router.get('/', function(req, res, next) {
 
 router.post('/userInput', (req, res)=>{
 	var username = req.body.username;
+	var madeOnList = false;
 	var score = req.body.score;
-	var selectQuery = `SELECT * FROM users WHERE username = '${username}';`;
-	connection.query(selectQuery, (err, results)=>{
-		if(err) throw err;
-		// console.log(results);
-		if(results.length == 0){
-			var insertQuery = `INSERT INTO users(username, score) VALUES ('${username}', '${score}');`;
-			connection.query(insertQuery, (err, results)=>{
-				if (err) throw err;
-				res.redirect('/?msg=userAdded');
-			});
-		}else { 
-			var updateQuery = `UPDATE users SET score ='${score}' WHERE username = '${username}';`;
-			connection.query(updateQuery, (err, results)=>{
+	var selectQuery = 'SELECT username,score FROM users ORDER BY score DESC';
+  	connection.query(selectQuery, (err, results)=>{
+		if (err) throw err;
+		var scoreArray = [];
+		var usernameArray = [];
+		results.forEach(result=>{
+			// console.log(result);
+			usernameArray.push(result.username);
+			scoreArray.push(result.score);
+  		});
+  		for (data in scoreArray){
+  			if(score > data){
+  				madeOnList = true;
+  			}
+  		}
+  		if(madeOnList){
+  			var selectQuery = `SELECT * FROM users WHERE username = '${username}';`;
+			connection.query(selectQuery, (err, results)=>{
 				if(err) throw err;
-				res.redirect('/?msg=scoreUpdated');
+				// console.log(results);
+				if(results.length == 0){
+				var insertQuery = `INSERT INTO users(username, score) VALUES ('${username}', '${score}');`;
+				connection.query(insertQuery, (err, results)=>{
+					if (err) throw err;
+					res.json(results);
+				});
+			}else { 
+				var updateQuery = `UPDATE users SET score ='${score}' WHERE username = '${username}';`;
+				connection.query(updateQuery, (err, results)=>{
+					if(err) throw err;
+					res.json(results);
+				});
+			}
 			});
-		}
+  		}else{
+  			res.json("sucks");
+  		}
+
 	});
 });
 module.exports = router;
