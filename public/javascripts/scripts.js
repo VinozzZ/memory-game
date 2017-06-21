@@ -10,27 +10,51 @@ var timerInterval = 0;
 var won = false;
 var GameT = new Timer(60);
 var outTime = false;
+var scoreBoard = [];
 // All code will wait until the DOM is ready!
 $(document).ready(function(){
+	$('.scoreboard-container').addClass('start');
+	// createScoreBoard();
+	console.log(scoreBoard);
 	displayCard();
-
-	$('.play-button').click(function(){
-		$('.start-container img').css('opacity', '0');
-		setTimeout(()=>$('.start-container').hide(), 1000);
-		setTimeout(()=>$('.mg-contents').addClass('show-game'), 1500)
-		setTimeout(()=>$('.menu-container').show(), 2500);
+	$cards = $('.mg-contents');
+	$cards.isotope({
+		itemSelector:'.card',
+		// percentPosition: true,
+		 masonry: {
+    	// use outer width of grid-sizer for columnWidth
+    		columnWidth: 5,
+  		}
+	});
+	$('#start').click(function(){
+		$('body').addClass('begin');
+		$cards.isotope('shuffle');
+		// setTimeout(()=>$('.start-container').hide(), 1000);
+		// setTimeout(()=>$('.mg-contents').addClass('show-game'), 1500)
+		// setTimeout(()=>$('.menu-container').show(), 2500);
 	})
-	$('.reset').click(function(){
+	$('#reset').click(function(){
 		reset();
 		displayCard();
+		// $cards.isotope('shuffle');
 		addClicks()
 	});
 
 	addClicks()
-	// $('.name-btn').click(function(){
-	// 	updateBoard();
-	// })
 
+	// $('.name-btn').click(function(){
+	// 	username = $('.name-input').val();
+	// 	var spaceReg = /\s/g;
+	// 	var result = username.match(spaceReg);
+	// 	if(username.length <= 2 || result != null){
+	// 	}else{
+	// 		if(checkScore()){
+	// 		}
+	// 		$('.score-board').css('opacity', '1');
+	// 		updateBoard();
+	// 	}
+	// 	// console.log(scoreBoard);
+	// });
 
 
 
@@ -39,15 +63,15 @@ $(document).ready(function(){
 function createCard(){
 	// add function for different difficulty levels
 	for (let i = 1; i < 9; i++){
-		var card = `<img src="ow/easy/easy-${i}.png"/>`;
+		var card = `<img src="/images/easy/easy-${i}.png"/>`;
 		cards.push(card);
 		cards.push(card);
 		}
 	return cards;
 }
 function displayCard(){
-	console.log('reset');
 	var card = 0;
+	var cardBack = '<img src="/images/back.png">'
 	var mgHTML = '';
 	shuffleCard()
 	for(let i = 0; i < gridSize; i++){
@@ -59,7 +83,7 @@ function displayCard(){
 		}
 			mgHTML += `<div class="card-holder ${i}">`;
 				mgHTML += '<div class="card-front">'+card+'</div>';
-				mgHTML += '<div class="card-back"></div>';
+				mgHTML += '<div class="card-back">' + cardBack+ '</div>';
 			mgHTML += '</div>';
 		mgHTML += '</div>';
 	}
@@ -80,19 +104,18 @@ function showCard(cardsUp){
 	// var classList = cardsUp.attr("class").split(" ");
 	// var currentCard = Number(classList[1]);
 	// console.log(currentCard);
+
 	var showed = false;
 	var i = 0;
 	var nextCard = 0;
-	if (cardsUp.length == 15)return;
+	var cardsUpTotal = $('.matched');
+	if (cardsUpTotal.length >= 14) return 1;
 	while (!showed) {
 		i = Math.floor(Math.random()*16);
-		console.log(i)
 		nextCard = $(`.${i}`);
-		console.log(nextCard);
 		if ((!nextCard.hasClass('flip')) && (!nextCard.hasClass('matched'))){
 			nextCard.addClass('flip');
-			console.log('in if');
-			setTimeout(()=>nextCard.removeClass('flip'), 1000);
+			setTimeout(()=>nextCard.removeClass('flip'), 500);
 			showed = true;
 		}
 	}
@@ -100,6 +123,7 @@ function showCard(cardsUp){
 
 function addClicks(){
 	$('.card-holder').click(function(){
+
 		if ((!won) && (!outTime)){
 			GameT.start();
 			$(this).toggleClass('flip');
@@ -115,42 +139,72 @@ function addClicks(){
 					ability(card1, cardsUp);
 					if(matchedCards.length == gridSize){
 						won = true;
+						score += parseInt($('.time').html());
+						updateScore();
+						console.log(score);
 						$('body').css({
-							'background': "url(won-bg.jpg) no-repeat",
 							'transition': "all 2s",
 						});
 						$('.mg-contents').css('display', 'none');
-						textGenerater('YOU HAVE WON THE GAME!');
+						// $('.username-container').fadeIn();
+						$(".scoreboard-container").removeClass('start');
+						$(".scoreboard-container").addClass('won');
+						submitAlert();
 						setTimeout(victorySound, 5000);
 					}
 				}else {
 					setTimeout(function(){
 						cardsUp.removeClass('flip');
-					}, 1000);
-					updateScore();
+					}, 850);
+					updateScore()
 				}
+			}else{
+				setTimeout(()=>{
+					cardsUp.removeClass('flip');
+				}, 850);
+				updateScore();
 			}
 		}
 	});
 }
 function updateScore(){
-	score--;
+	if(!won){
+		score--;
+	}
 	$('.score').text(score);
-	localStorage.setItem('lastscore', score);
 }
-//
-// function updateBoard(){
-// 	$('.name').submit(function(e){
-// 		e.preventDefault();
-// 		var userName = $('.name-input').val();
-// 		if (userName === '') return;
-// 		var newHTML = ''
-// 		newHTML += '<tr>';
-// 			newHTML += `<td>${userName}</td>`;
-// 			newHTML += `<td>${score}</td>`;
-// 		newHTML += '</tr>';
-// 		$('#score-board-body').append(newHTML);
-// 	})
+// function createScoreBoard(){
+// 	for(let i = 0; i < usernameArray.length; i++){
+// 		var userData={'username': usernameArray[i], 'score': scoreArray[i]};
+// 		scoreBoard.push(userData);
+// 	}
+// }
+// function checkScore(username){
+// 	var updated = false;
+// 	var counter = 0;
+// 	console.log(scoreBoard);
+// 	scoreBoard.map(oldData=>{
+// 		counter++;
+// 		if(score >= oldData.score && !updated){
+// 			console.log('test');
+// 			updated = true;
+// 			return true;
+// 		}else if (!updated && scoreBoard.length >= 10 && counter == scoreBoard.length) {
+// 			return false;
+// 		}
+// 	});
+// };
+
+function updateBoard(scoreBoard){
+	scoreBoard.map(data=>{
+		var newHTML = ''
+		newHTML += '<tr>';
+			newHTML += `<td>${data.username}</td>`;
+			newHTML += `<td>${data.score}</td>`;
+		newHTML += '</tr>';
+		$('.userdata').append(newHTML);
+	});
+}
 //
 // }
 // function highScores(){
@@ -170,22 +224,18 @@ function reset(){
 	score = 200;
 	theCards = cards.slice();
 	card = 0;
-	mgHTML = '';
+	// mgHTML = '';
 	timerInterval = 0;
 	won = false;
 	GameT.clearInterval();
-	$('.time').html('0');
+	$('.time').html('');
 	GameT = new Timer(60);
 	outTime = false;
-	$('.score').text(score);
+	$('.score').text('');
 	$('.card-holder').removeClass('flip');
 	$('.card-holder').removeClass('matched');
-	$('body').css({
-		'background': "url(background.jpg) no-repeat",
-	});
 	$('.mg-contents').css('filter', 'none');
-	$('.mg-contents').show();
-	$('.message-container').hide();
+	$('.mg-contents').css('height', "500px");
 }
 
 function ability(card1, cardsUp){
@@ -216,13 +266,54 @@ function ability(card1, cardsUp){
 	}
 }
 
-function textGenerater(text){
-	if ((won) || (outTime)){
+function submitAlert(){
+	if(won){
 		$('.mg-contents').css('filter', 'blur(5px)');
+		sweetAlert({
+			allowEscapeKey: false,
+			input:'text',
+			inputPlaceholder: 'Please enter your username',
+			title: 'Congratulations! You Won!',
+			type: 'success',
+			confirmButtonColor: '#fc9c33',
+			showCancelButton: true,
+  			confirmButtonText: 'Submit',
+  			showLoaderOnConfirm: true,
+  			background: '#ebebeb',
+  			preConfirm: function (username) {
+  				// console.log(checkScore(username));
+    			return new Promise(function (resolve, reject) {
+    				$.ajax({
+						method: "POST",
+						url: "userInput",
+						data:{score: score, username: username},
+						success:function(resp){
+							// console.log(resp);
+							updateBoard(resp);
+						}
+					});
+      				setTimeout(function() {
+        				if (username === 'taken') {
+          					reject('This email is already taken.')
+        				} else {
+          					resolve()
+        				}
+      				}, 2000)
+    			})
+  			},
+  			allowOutsideClick: false
+		}).then(function (username) {
+			// console.log(username);
+			$('.score-board').css('opacity', '1');
+		});
 	}
-	setTimeout(()=>$('.message-container').show(), 1000);
+}
+function textGenerater(text){
+		
+	setTimeout(()=>$('.message-container').show(), 500);
 	$('.message-text').html(text);
 	setTimeout(()=>$('.message-container').hide(), 3000);
+	$('.form-msg').html("Please enter an username without any space in it...");
 }
 
 function playSound(card1){

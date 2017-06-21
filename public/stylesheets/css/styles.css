@@ -1,0 +1,248 @@
+/* line 2, ../compass/sass/styles.scss */
+* {
+  box-sizing: border-box;
+}
+
+/* line 5, ../compass/sass/styles.scss */
+body {
+  height: 100vh;
+  width: 100vw;
+  font-family: "brandon-grotesque", "Brandon Grotesque", "Brandon Text", "Futura", "Source Sans Pro", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+}
+/* line 11, ../compass/sass/styles.scss */
+body.begin .menu-container {
+  opacity: 1;
+}
+/* line 14, ../compass/sass/styles.scss */
+body.begin .start-container {
+  opacity: 0;
+  z-index: -1000;
+}
+/* line 18, ../compass/sass/styles.scss */
+body.begin .game-container {
+  opacity: 1;
+  z-index: 1000;
+}
+
+/* line 24, ../compass/sass/styles.scss */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* line 29, ../compass/sass/styles.scss */
+.flex-box-center, body, .start-container, .game-container, .menu-container, .cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* line 34, ../compass/sass/styles.scss */
+.start-container {
+  position: absolute;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(235, 235, 235, 0.8);
+  z-index: 1000;
+}
+/* line 42, ../compass/sass/styles.scss */
+.start-container p {
+  width: 50%;
+}
+/* line 45, ../compass/sass/styles.scss */
+.start-container button {
+  cursor: pointer;
+  border: 0;
+  min-width: 180px;
+  height: 64px;
+  font-family: "brandon-grotesque", "Brandon Grotesque", "Brandon Text", "Futura", "Source Sans Pro", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  border-radius: 16px;
+  font-size: 20px;
+  background-color: #fc9c33;
+}
+
+/* line 56, ../compass/sass/styles.scss */
+.game-container {
+  align-items: flex-start;
+  opacity: 0.3;
+  height: 80vh;
+  width: 80vw;
+  transition: all 2s;
+}
+/* line 63, ../compass/sass/styles.scss */
+.game-container .mg-contents {
+  width: 100%;
+  margin-top: 20vh;
+}
+
+/* line 69, ../compass/sass/styles.scss */
+.menu-container {
+  margin-top: 1%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1001;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+/* line 78, ../compass/sass/styles.scss */
+.menu-container #reset {
+  cursor: pointer;
+  background-color: #F2B880;
+  border: 0;
+  font-family: "brandon-grotesque", "Brandon Grotesque", "Brandon Text", "Futura", "Source Sans Pro", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  border-radius: 16px;
+  font-size: 20px;
+  min-width: 100px;
+  height: 40px;
+}
+
+/* line 89, ../compass/sass/styles.scss */
+.message-container {
+  position: absolute;
+  height: 5%;
+  width: 25%;
+  top: 5%;
+  display: none;
+  left: 40%;
+  background-color: #F2B880;
+  border: 0;
+  font-family: "brandon-grotesque", "Brandon Grotesque", "Brandon Text", "Futura", "Source Sans Pro", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  border-radius: 16px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 20px;
+}
+
+/* line 105, ../compass/sass/styles.scss */
+.scoreboard-container {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(235, 235, 235, 0.8);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* line 115, ../compass/sass/styles.scss */
+.scoreboard-container .score-board {
+  opacity: 0;
+  margin-top: 15%;
+}
+/* line 118, ../compass/sass/styles.scss */
+.scoreboard-container .score-board th {
+  padding-right: 40%;
+}
+/* line 124, ../compass/sass/styles.scss */
+.scoreboard-container .username-container .name {
+  margin-bottom: 0.5em;
+}
+/* line 126, ../compass/sass/styles.scss */
+.scoreboard-container .username-container .name input {
+  margin-top: 5px;
+  padding: 6px 15px;
+  border: 1px solid #999;
+  border-radius: 16px;
+  line-height: 20px;
+  font-size: 14px;
+  color: #222;
+}
+/* line 135, ../compass/sass/styles.scss */
+.scoreboard-container .username-container .name button {
+  cursor: pointer;
+  background-color: #F2B880;
+  border: 0;
+  font-family: "brandon-grotesque", "Brandon Grotesque", "Brandon Text", "Futura", "Source Sans Pro", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  border-radius: 16px;
+  font-size: 14px;
+  min-width: 80px;
+  height: 35px;
+  margin-left: 5px;
+}
+/* line 148, ../compass/sass/styles.scss */
+.scoreboard-container.start {
+  display: none;
+}
+/* line 151, ../compass/sass/styles.scss */
+.scoreboard-container .won {
+  display: flex;
+}
+
+/* line 155, ../compass/sass/styles.scss */
+.cards-container {
+  height: 60vh;
+  width: 50vw;
+  flex-flow: row wrap;
+  appearance: none;
+}
+
+/* line 164, ../compass/sass/styles.scss */
+.card {
+  cursor: pointer;
+  height: 10vw;
+  width: 10vw;
+  perspective: 500px;
+  background-color: #ebebeb;
+  border-radius: 5%;
+  display: inline-block;
+  margin: 1%;
+  float: left;
+}
+
+/* line 177, ../compass/sass/styles.scss */
+.card-holder {
+  width: 10vw;
+  height: 10vw;
+  /*the children will be absolute. So make this relative so they can have an anchor*/
+  position: relative;
+  /*so that the children know they are in 3d land*/
+  transform-style: preserve-3d;
+  transition: 500ms all;
+}
+
+/* line 187, ../compass/sass/styles.scss */
+.card-front, .card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* line 195, ../compass/sass/styles.scss */
+.card-front {
+  height: 10vw;
+  width: 10vw;
+  transform: rotateY(-180deg);
+  /*margin: auto;*/
+  /*vertical-align: middle;*/
+}
+
+/* line 204, ../compass/sass/styles.scss */
+.card-back {
+  background: url("back.png") no-repeat 50%;
+  /*50% is background-location*/
+  height: 10vw;
+}
+
+/* line 210, ../compass/sass/styles.scss */
+.flip {
+  transform: rotateY(180deg);
+  /*margin: auto;*/
+}
+
+/* line 215, ../compass/sass/styles.scss */
+.matched {
+  transform: rotateY(180deg);
+}
+
+@media only screen and (min-width: 1320px) {
+  /* line 220, ../compass/sass/styles.scss */
+  .message-container {
+    right: 0;
+    top: 10em;
+    left: 75%;
+  }
+}
