@@ -20,6 +20,11 @@ $(document).ready(function(){
 	$cards = $('.mg-contents');
 	$cards.isotope({
 		itemSelector:'.card',
+		// percentPosition: true,
+		 masonry: {
+    	// use outer width of grid-sizer for columnWidth
+    		columnWidth: 5,
+  		}
 	});
 	$('#start').click(function(){
 		$('body').addClass('begin');
@@ -190,7 +195,7 @@ function updateScore(){
 // 	});
 // };
 
-function updateBoard(){
+function updateBoard(scoreBoard){
 	scoreBoard.map(data=>{
 		var newHTML = ''
 		newHTML += '<tr>';
@@ -219,20 +224,18 @@ function reset(){
 	score = 200;
 	theCards = cards.slice();
 	card = 0;
-	mgHTML = '';
+	// mgHTML = '';
 	timerInterval = 0;
 	won = false;
 	GameT.clearInterval();
 	$('.time').html('');
 	GameT = new Timer(60);
 	outTime = false;
-	$(".scoreboard-container").hide();
 	$('.score').text('');
 	$('.card-holder').removeClass('flip');
 	$('.card-holder').removeClass('matched');
 	$('.mg-contents').css('filter', 'none');
-	$('.mg-contents').show();
-	$('.message-container').hide();
+	$('.mg-contents').css('height', "500px");
 }
 
 function ability(card1, cardsUp){
@@ -285,7 +288,8 @@ function submitAlert(){
 						url: "userInput",
 						data:{score: score, username: username},
 						success:function(resp){
-							console.log(resp);
+							// console.log(resp);
+							updateBoard(resp);
 						}
 					});
       				setTimeout(function() {
@@ -300,7 +304,6 @@ function submitAlert(){
   			allowOutsideClick: false
 		}).then(function (username) {
 			// console.log(username);
-			updateBoard()
 			$('.score-board').css('opacity', '1');
 		});
 	}

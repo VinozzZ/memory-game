@@ -62,8 +62,7 @@ img{
 	transition: all 2s;
 	.mg-contents{
 		width:100%;
-		height:100%;
-		padding-right: 10vw;
+		// height:100%;
 		margin-top: 20vh;
 	}
 }
@@ -172,6 +171,7 @@ img{
     border-radius: 5%;
     display: inline-block;
     margin:1%;
+    float: left;
 }
 
 .card-holder {
@@ -214,4 +214,12 @@ img{
 
 .matched {
     transform: rotateY(180deg);
+}
+
+@media only screen and (min-width:1320px){
+	.message-container{
+		right:0;
+		top:10em;
+		left:75%;
+	}
 }
