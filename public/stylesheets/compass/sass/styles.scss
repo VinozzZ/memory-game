@@ -114,9 +114,21 @@ img{
 	align-items:center;
 	.score-board{
 		opacity: 0;
-		margin-top: 15%;
-		th{
-			padding-right: 40%;
+		margin-top: 10%;
+		display:flex;
+		justify-content: center;
+		table{
+			width:25%;
+			tbody{
+				text-align:center;
+			}
+			td{
+				width:40%;
+			}
+			.rank-img{
+				display:inline-block;
+				width:40%;
+			}
 		}
 	}	
 	.username-container{
@@ -221,5 +233,12 @@ img{
 		right:0;
 		top:10em;
 		left:75%;
+	}
+}
+@media only screen and (max-width:380px){
+	.game-container{
+		.mg-contents{
+			margin-top: 0;
+		}
 	}
 }

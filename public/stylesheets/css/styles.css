@@ -129,17 +129,32 @@ img {
 /* line 115, ../compass/sass/styles.scss */
 .scoreboard-container .score-board {
   opacity: 0;
-  margin-top: 15%;
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
 }
-/* line 118, ../compass/sass/styles.scss */
-.scoreboard-container .score-board th {
-  padding-right: 40%;
+/* line 120, ../compass/sass/styles.scss */
+.scoreboard-container .score-board table {
+  width: 25%;
 }
-/* line 124, ../compass/sass/styles.scss */
+/* line 122, ../compass/sass/styles.scss */
+.scoreboard-container .score-board table tbody {
+  text-align: center;
+}
+/* line 125, ../compass/sass/styles.scss */
+.scoreboard-container .score-board table td {
+  width: 40%;
+}
+/* line 128, ../compass/sass/styles.scss */
+.scoreboard-container .score-board table .rank-img {
+  display: inline-block;
+  width: 40%;
+}
+/* line 136, ../compass/sass/styles.scss */
 .scoreboard-container .username-container .name {
   margin-bottom: 0.5em;
 }
-/* line 126, ../compass/sass/styles.scss */
+/* line 138, ../compass/sass/styles.scss */
 .scoreboard-container .username-container .name input {
   margin-top: 5px;
   padding: 6px 15px;
@@ -149,7 +164,7 @@ img {
   font-size: 14px;
   color: #222;
 }
-/* line 135, ../compass/sass/styles.scss */
+/* line 147, ../compass/sass/styles.scss */
 .scoreboard-container .username-container .name button {
   cursor: pointer;
   background-color: #F2B880;
@@ -161,16 +176,16 @@ img {
   height: 35px;
   margin-left: 5px;
 }
-/* line 148, ../compass/sass/styles.scss */
+/* line 160, ../compass/sass/styles.scss */
 .scoreboard-container.start {
   display: none;
 }
-/* line 151, ../compass/sass/styles.scss */
+/* line 163, ../compass/sass/styles.scss */
 .scoreboard-container .won {
   display: flex;
 }
 
-/* line 155, ../compass/sass/styles.scss */
+/* line 167, ../compass/sass/styles.scss */
 .cards-container {
   height: 60vh;
   width: 50vw;
@@ -178,7 +193,7 @@ img {
   appearance: none;
 }
 
-/* line 164, ../compass/sass/styles.scss */
+/* line 176, ../compass/sass/styles.scss */
 .card {
   cursor: pointer;
   height: 10vw;
@@ -191,7 +206,7 @@ img {
   float: left;
 }
 
-/* line 177, ../compass/sass/styles.scss */
+/* line 189, ../compass/sass/styles.scss */
 .card-holder {
   width: 10vw;
   height: 10vw;
@@ -202,7 +217,7 @@ img {
   transition: 500ms all;
 }
 
-/* line 187, ../compass/sass/styles.scss */
+/* line 199, ../compass/sass/styles.scss */
 .card-front, .card-back {
   position: absolute;
   top: 0;
@@ -211,7 +226,7 @@ img {
   backface-visibility: hidden;
 }
 
-/* line 195, ../compass/sass/styles.scss */
+/* line 207, ../compass/sass/styles.scss */
 .card-front {
   height: 10vw;
   width: 10vw;
@@ -220,29 +235,35 @@ img {
   /*vertical-align: middle;*/
 }
 
-/* line 204, ../compass/sass/styles.scss */
+/* line 216, ../compass/sass/styles.scss */
 .card-back {
   background: url("back.png") no-repeat 50%;
   /*50% is background-location*/
   height: 10vw;
 }
 
-/* line 210, ../compass/sass/styles.scss */
+/* line 222, ../compass/sass/styles.scss */
 .flip {
   transform: rotateY(180deg);
   /*margin: auto;*/
 }
 
-/* line 215, ../compass/sass/styles.scss */
+/* line 227, ../compass/sass/styles.scss */
 .matched {
   transform: rotateY(180deg);
 }
 
 @media only screen and (min-width: 1320px) {
-  /* line 220, ../compass/sass/styles.scss */
+  /* line 232, ../compass/sass/styles.scss */
   .message-container {
     right: 0;
     top: 10em;
     left: 75%;
+  }
+}
+@media only screen and (max-width: 380px) {
+  /* line 240, ../compass/sass/styles.scss */
+  .game-container .mg-contents {
+    margin-top: 0;
   }
 }

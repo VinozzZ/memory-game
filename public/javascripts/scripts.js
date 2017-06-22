@@ -34,9 +34,19 @@ $(document).ready(function(){
 		// setTimeout(()=>$('.menu-container').show(), 2500);
 	})
 	$('#reset').click(function(){
+		$cards.isotope('destroy');
 		reset();
 		displayCard();
-		// $cards.isotope('shuffle');
+		$('.mg-contents').css('display', 'flex');
+		$cards.isotope({
+			itemSelector:'.card',
+		// percentPosition: true,
+			masonry: {
+    	// use outer width of grid-sizer for columnWidth
+    			columnWidth: 5,
+  			}
+		});
+		$cards.isotope('shuffle');
 		addClicks()
 	});
 
@@ -137,7 +147,7 @@ function addClicks(){
 					cardsUp.addClass('matched');
 					var matchedCards = $('.matched');
 					ability(card1, cardsUp);
-					if(matchedCards.length == gridSize){
+					// if(matchedCards.length == gridSize){
 						won = true;
 						score += parseInt($('.time').html());
 						updateScore();
@@ -151,7 +161,7 @@ function addClicks(){
 						$(".scoreboard-container").addClass('won');
 						submitAlert();
 						setTimeout(victorySound, 5000);
-					}
+					// }
 				}else {
 					setTimeout(function(){
 						cardsUp.removeClass('flip');
@@ -196,11 +206,17 @@ function updateScore(){
 // };
 
 function updateBoard(scoreBoard){
-	scoreBoard.map(data=>{
+	scoreBoard.map((data, index)=>{
+		index += 1;
 		var newHTML = ''
 		newHTML += '<tr>';
+		if(index < 9){
+			newHTML += `<td><div class="rank-img"><img src='/images/ranks/${index}.png'></div></td>`
+			newHTML += `<td colspan="2">${data.username}</td>`;
+		}else{
 			newHTML += `<td>${data.username}</td>`;
-			newHTML += `<td>${data.score}</td>`;
+		}
+		newHTML += `<td>${data.score}</td>`;
 		newHTML += '</tr>';
 		$('.userdata').append(newHTML);
 	});
@@ -235,7 +251,8 @@ function reset(){
 	$('.card-holder').removeClass('flip');
 	$('.card-holder').removeClass('matched');
 	$('.mg-contents').css('filter', 'none');
-	$('.mg-contents').css('height', "500px");
+	$('.scoreboard-container').hide();
+	// $('.mg-contents').css('height', "500px");
 }
 
 function ability(card1, cardsUp){

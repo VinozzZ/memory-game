@@ -57,6 +57,9 @@ router.post('/userInput', (req, res)=>{
 			return results;
 		})
 	}).then((updatedList)=>{
+		if(updatedList.length > 9){
+			updatedList = updatedList.slice(0, 8);
+		}
 		res.json(updatedList);
 	})
 
