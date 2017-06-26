@@ -147,7 +147,7 @@ function addClicks(){
 					cardsUp.addClass('matched');
 					var matchedCards = $('.matched');
 					ability(card1, cardsUp);
-					// if(matchedCards.length == gridSize){
+					if(matchedCards.length == gridSize){
 						won = true;
 						score += parseInt($('.time').html());
 						updateScore();
@@ -161,7 +161,7 @@ function addClicks(){
 						$(".scoreboard-container").addClass('won');
 						submitAlert();
 						setTimeout(victorySound, 5000);
-					// }
+					}
 				}else {
 					setTimeout(function(){
 						cardsUp.removeClass('flip');
